@@ -1,1 +1,1 @@
-# FlaskApp_WebNewsEngine
+# A Web News Engine for Sentiment analysis and NLP
