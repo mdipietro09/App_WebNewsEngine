@@ -1,0 +1,23 @@
+
+{% extends 'base.html' %}
+
+{% block title %} Web News {% endblock %}
+
+{% block head %}
+ {{ super() }}
+{% endblock %}
+
+{% block body %}
+<h3>Web News Engine</h3>
+<br>
+<form method="post">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </div>
+      <input type="text" class="form-control" name="query" placeholder="insert keywords to search or leave empty to discover what's happening" aria-label="" aria-describedby="basic-addon1" value={{request.form.query}}>
+    </div>
+</form>
+<br>
+<div><img src="{{ url_for('static', filename='home1.gif') }}" class="img-fluid" alt="Responsive image"></div>
+{% endblock %}

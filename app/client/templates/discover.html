@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+
+{% block title %} Web News {% endblock %}
+
+{% block head %}
+ {{ super() }}
+{% endblock %}
+
+{% block body %}
+<!-- TWEETS -->
+<br><h5>Hashtags</h3>
+<div class="row">
+    {% for place in tweets %}
+    <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action" id="list-{{place}}-list" data-toggle="list" href="#list-{{place}}" role="tab" aria-controls="{{place}}">{{place}}</a>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="list-{{place}}" role="tabpanel" aria-labelledby="list-{{place}}-list">{{tweets[place]}}</div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- NEWS -->
+<br><h5>News</h3>
+<div class="row">
+    {% for source in news %}
+    <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action" id="list-{{source}}-list" data-toggle="list" href="#list-{{source}}" role="tab" aria-controls="{{source}}">{{source}}</a>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="list-{{source}}" role="tabpanel" aria-labelledby="list-{{source}}-list">
+                <ul> {% for title in news[source] %} <li>{{title}}</li> {% endfor %} </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

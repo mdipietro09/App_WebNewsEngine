@@ -1,0 +1,42 @@
+
+{% extends 'index.html' %}
+
+{% block title %} Web News {% endblock %}
+
+{% block head %}
+ {{ super() }}
+{% endblock %}
+
+{% block body %}
+<!-- TWEETS -->
+<br><h5>Tweets</h3>
+<div class="col-8">
+    {% for tweet in tweets %}
+        <ul class="list-group">
+            {% if tweet["sentiment"]<-0.5 %}
+                <li class="list-group-item list-group-item-danger">{{tweet["Tweet"]}}</li>
+            {% elif tweet["sentiment"]>0.5 %}
+                <li class="list-group-item list-group-item-success">{{tweet["Tweet"]}}</li>
+            {% else %}
+                <li class="list-group-item list-group-item-dark">{{tweet["Tweet"]}}</li>
+            {% endif %}
+        </ul>
+    {% endfor %}
+</div>
+
+<!-- NEWS -->
+<br><h5>News</h3>
+<div class="col-8">
+    {% for article in news %}
+        <ul class="list-group">
+            {% if article["sentiment"]<-0.5 %}
+                <li class="list-group-item list-group-item-danger">{{article["title"]}}</li>
+            {% elif article["sentiment"]>0.5 %}
+                <li class="list-group-item list-group-item-success">{{article["title"]}}</li>
+            {% else %}
+                <li class="list-group-item list-group-item-dark">{{article["title"]}}</li>
+            {% endif %}
+        </ul>
+    {% endfor %}
+</div>
+{% endblock %}
