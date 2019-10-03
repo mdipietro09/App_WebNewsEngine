@@ -12,19 +12,16 @@ class discover():
         
     
     def data(self):
-        if len(self.dtf_news)==0 and len(self.dtf_tweets)==0:
-            return "No Data"
-        else:
-            ## tweets
-            dic_tweets = {}
-            for place in self.dtf_tweets.columns:
-                dic_tweets.update({place:self.dtf_tweets[place].tolist()})
-            #lst_tweets = [x for lista in self.dtf_tweets.values.tolist() for x in lista]
-            
-            ## news
-            dic_news = {}
-            for source in self.dtf_news["source"].unique():
-                dic_news.update({source:self.dtf_news[self.dtf_news["source"] == source]["title"].tolist()})
-            #lst_dics_news = self.dtf_news[["title", "source"]].to_dict("records")
-            
-            return dic_tweets, dic_news
+        ## tweets
+        dic_tweets = {}
+        for place in self.dtf_tweets.columns:
+            dic_tweets.update({place:self.dtf_tweets[place].tolist()})
+        #lst_tweets = [x for lista in self.dtf_tweets.values.tolist() for x in lista]
+        
+        ## news
+        dic_news = {}
+        for source in self.dtf_news["source"].unique():
+            dic_news.update({source:self.dtf_news[self.dtf_news["source"] == source]["title"].tolist()})
+        #lst_dics_news = self.dtf_news[["title", "source"]].to_dict("records")
+        
+        return dic_tweets, dic_news

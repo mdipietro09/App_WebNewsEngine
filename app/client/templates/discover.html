@@ -1,15 +1,40 @@
 
 {% extends 'base.html' %}
 
-{% block title %} Web News {% endblock %}
+{% block title %} Web News Engine {% endblock %}
 
 {% block head %}
  {{ super() }}
 {% endblock %}
 
 {% block body %}
+
+<!-- NEWS -->
+<br><h5>News</h5>
+
+<div class="row">
+    {% for source in news %}
+    <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action" id="list-{{loop.index}}-list" data-toggle="list" href="#list-{{loop.index}}" role="tab" aria-controls="{{loop.index}}">
+                {{source}} <span class="badge badge-dark badge-pill right">{{news[source]|count}}</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="list-{{loop.index}}" role="tabpanel" aria-labelledby="list-{{loop.index}}-list">
+                <ul>{% for title in news[source] %} <li>{{title}}</li> {% endfor %}</ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
 <!-- TWEETS -->
-<br><h5>Hashtags</h3>
+<br><h5>Hashtags</h5>
+
 <div class="row">
     {% for place in tweets %}
     <div class="col-4">
@@ -19,28 +44,12 @@
     </div>
     <div class="col-8">
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade" id="list-{{place}}" role="tabpanel" aria-labelledby="list-{{place}}-list">{{tweets[place]}}</div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-
-<!-- NEWS -->
-<br><h5>News</h3>
-<div class="row">
-    {% for source in news %}
-    <div class="col-4">
-        <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action" id="list-{{source}}-list" data-toggle="list" href="#list-{{source}}" role="tab" aria-controls="{{source}}">{{source}}</a>
-        </div>
-    </div>
-    <div class="col-8">
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade" id="list-{{source}}" role="tabpanel" aria-labelledby="list-{{source}}-list">
-                <ul> {% for title in news[source] %} <li>{{title}}</li> {% endfor %} </ul>
+            <div class="tab-pane fade" id="list-{{place}}" role="tabpanel" aria-labelledby="list-{{place}}-list">
+                {% for hashtag in tweets[place] %} <span class="badge badge-light">{{hashtag}}</span> {% endfor %}
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
+
 {% endblock %}

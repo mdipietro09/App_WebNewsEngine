@@ -38,21 +38,27 @@ def create_app(twitter_keys, newsapi_keys, eventregistry_keys, name=None):
             #eventregistry = eventregistry_engine(eventregistry_keys)
             
             if flask.request.method == 'POST':
-                query = [flask.request.form["query"]]
-        
+                query = flask.request.form["query"]
+                
                 ### Search
-                if len(query) > 0:
+                if query != "":
+                    app.logger.info("--> Search")
+                    query = query.split(",")
+                    app.logger.info(query)
                     dtf_tweets = twitter.get_tweets(query)
                     app.logger.info('called Twitter')
                     dtf_news = newsapi.get_news(query)
                     app.logger.info('called Newsapi')
                     model = search(dtf_tweets, dtf_news)
-                    tweets, news = model.data()
+                    tweets, news, topic_sentim, img = model.data()
+                    app.logger.info(str(topic_sentim))
                     #dtf_events = eventregistry.get_events(query) 
-                    return flask.render_template("search.html", tweets=tweets, news=news)
+                    return flask.render_template("search.html", tweets=tweets, news=news, 
+                                                 topic_sentim=topic_sentim, img=img)
                 
                 ### Discover
                 else:
+                    app.logger.info("--> Discover")
                     dtf_tweets = twitter.discover_trends()
                     app.logger.info('called Twitter')
                     dtf_news = newsapi.discover_topnews()
