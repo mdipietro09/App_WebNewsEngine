@@ -10,7 +10,7 @@
 {% block body %}
 
 <!-- NEWS -->
-<br><h5>News</h5>
+<br><h5>Latest News</h5>
 
 <div class="row">
     {% for source in news %}
@@ -24,7 +24,8 @@
     <div class="col-8">
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="list-{{loop.index}}" role="tabpanel" aria-labelledby="list-{{loop.index}}-list">
-                <ul>{% for title in news[source] %} <li>{{title}}</li> {% endfor %}</ul>
+                <ul>{% for title in news[source] %} <li>{{title|safe}}</li> {% endfor %}</ul>
+                <button type="button" class="close" aria-label="Close" onclick="$('#list-{{loop.index}}-list').removeClass('active');$('#list-{{loop.index}}').removeClass('active show');"><span aria-hidden="true">&times;</span></button>
             </div>
         </div>
     </div>
@@ -33,7 +34,7 @@
 
 
 <!-- TWEETS -->
-<br><h5>Hashtags</h5>
+<br><h5>Trending Hashtags</h5>
 
 <div class="row">
     {% for place in tweets %}
@@ -46,6 +47,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade" id="list-{{place}}" role="tabpanel" aria-labelledby="list-{{place}}-list">
                 {% for hashtag in tweets[place] %} <span class="badge badge-light">{{hashtag}}</span> {% endfor %}
+                <button type="button" class="close" aria-label="Close" onclick="$('#list-{{place}}-list').removeClass('active');$('#list-{{place}}').removeClass('active show');"><span aria-hidden="true">&times;</span></button>
             </div>
         </div>
     </div>
