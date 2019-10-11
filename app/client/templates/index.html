@@ -11,13 +11,13 @@
 
 <h3>Web News Engine</h3>
 
-<br><div class="col-8">
+<br><div class="col-6">
     <form method="post">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <button class="btn btn-outline-secondary" type="submit" id="btnSearch">Search</button>
           </div>
-          <input type="text" class="form-control" name="query" placeholder="insert keywords separated by comma to search or leave empty to discover what's happening" aria-label="" aria-describedby="basic-addon1" value={{request.form.query}}>
+          <input type="text" class="form-control" name="query" placeholder="insert keywords to search (example: brexit,donald trump,china) or leave empty to discover what's happening" aria-label="" aria-describedby="basic-addon1" value={{request.form.query}}>
         </div>
     </form>
 </div>

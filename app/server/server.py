@@ -73,22 +73,6 @@ def create_app(twitter_keys, newsapi_keys, eventregistry_keys, name=None):
         except Exception as e:
             app.logger.error(e)
             flask.abort(500)
-        
-        
-    @app.route("/listener", methods=['GET', 'POST'])
-    def listener():
-        try:
-            
-            if flask.request.method == 'POST':
-                query = flask.request.form["query"]
-                tweets = ""
-                return flask.render_template("listener.html", tweets=tweets)
-                
-            else:
-                return flask.render_template("listener.html")
-        except Exception as e:
-            app.logger.error(e)
-            flask.abort(500)
     
     
     ## errors
