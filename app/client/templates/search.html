@@ -1,0 +1,91 @@
+
+{% extends 'index.html' %}
+
+{% block title %} Web News Engine {% endblock %}
+
+{% block head %}
+ {{ super() }}
+{% endblock %}
+
+{% block body %}
+
+<!-- SUMMARY -->
+<br><h5>Topic Summary</h5>
+
+<div class="col-8">
+    <br><h6>Web Sentiment:</h6>
+    <div class="progress">
+        {% if topic_sentim < 0 %}
+            <div class="progress-bar bg-danger" role="progressbar" style="width:{{-topic_sentim*100}}%" aria-valuenow="{{-topic_sentim}}" aria-valuemin="-1" aria-valuemax="1"></div>
+        {% elif topic_sentim > 0.5 %}
+            <div class="progress-bar bg-success" role="progressbar" style="width:{{topic_sentim*100}}%" aria-valuenow="{{topic_sentim}}" aria-valuemin="-1" aria-valuemax="1"></div>
+        {% else %}
+            <div class="progress-bar bg-warning" role="progressbar" style="width:{{topic_sentim*100}}%" aria-valuenow="{{topic_sentim}}" aria-valuemin="-1" aria-valuemax="1"></div>
+        {% endif %}
+    </div>
+    
+    <br><h6>Related Topics:</h6>
+    <img src="{{img}}" class="img-fluid" alt="Responsive image">
+</div>
+
+<script>
+    $("img").on("error", function(){ $(this).hide(); });
+</script>
+
+
+<!-- NEWS -->
+<br><h5>News</h5>
+
+<div class="accordion col-8" id="accordionNews">
+    {% for article in news %}
+        <div class="card">
+            {% if article["sentiment"]<-0.3 %} 
+                <div class="card-header list-group-item-danger" id="Newsheading{{loop.index}}">             
+            {% elif article["sentiment"]>0.3 %} 
+                <div class="card-header list-group-item-success" id="Newsheading{{loop.index}}">
+            {% else %} 
+                <div class="card-header list-group-item-warning" id="Newsheading{{loop.index}}">
+            {% endif %} 
+                    <button class="btn" type="button" data-toggle="collapse" data-target="#Newscollapse{{loop.index}}" aria-expanded="true" aria-controls="Newscollapse{{loop.index}}">{{article["title"]}}</button>
+                </div>
+            <div id="Newscollapse{{loop.index}}" class="collapse" aria-labelledby="Newsheading{{loop.index}}" data-parent="#accordionNews">
+                <div class="card-body">
+                    {% for tag in article["tags"]|unique %} <span class="badge badge-dark">{{tag}}</span> {% endfor %}
+                    <br><br>
+                    <h6>{{article["source"]}}</h6>
+                    <p>{{article["description"]}}</p>
+                    <a href="{{article['url']}}" target="_blank">{{article["url"]}}</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+<!-- TWEETS -->
+<br><h5>Tweets</h5>
+
+<div class="accordion col-8" id="accordionTweets">
+    {% for tweet in tweets %}
+        <div class="card">
+            {% if tweet["sentiment"]<-0.3 %} 
+                <div class="card-header list-group-item-danger" id="Tweetsheading{{loop.index}}">             
+            {% elif tweet["sentiment"]>0.3 %} 
+                <div class="card-header list-group-item-success" id="Tweetsheading{{loop.index}}">
+            {% else %} 
+                <div class="card-header list-group-item-warning" id="Tweetsheading{{loop.index}}">
+            {% endif %} 
+                    <button class="btn" type="button" data-toggle="collapse" data-target="#Tweetscollapse{{loop.index}}" aria-expanded="true" aria-controls="Tweetscollapse{{loop.index}}">{{tweet["Tweet"]|safe}}</button>
+                </div>
+            <div id="Tweetscollapse{{loop.index}}" class="collapse" aria-labelledby="Tweetsheading{{loop.index}}" data-parent="#accordionTweets">
+                <div class="card-body">
+                    {% for tag in tweet["tags"]|unique %} <span class="badge badge-dark">{{tag}}</span> {% endfor %}
+                    <br>user: {{tweet["User"]}}
+                    <br>from: {{tweet["Location"]}}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

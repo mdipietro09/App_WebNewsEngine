@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+{% block title %} Web News Engine {% endblock %}
+
+{% block head %}
+ {{ super() }}
+{% endblock %}
+
+{% block body %}
+
+<h3>Web News Engine</h3>
+
+<br><div class="col-8">
+    <form method="post">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="submit" id="btnSearch">Search</button>
+          </div>
+          <input type="text" class="form-control" name="query" placeholder="insert keywords to search (example: donald trump,china) or leave empty to discover what's happening" aria-label="" aria-describedby="basic-addon1" value={{request.form.query}}>
+        </div>
+    </form>
+</div>
+
+<br><div><img src="{{ url_for('static', filename='home1.gif') }}" class="img-fluid" alt="Responsive image"></div>
+
+<script>
+    $("#btnSearch").click(function() {
+        $(this).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+    });
+</script>
+
+{% endblock %}

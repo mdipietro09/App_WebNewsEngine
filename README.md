@@ -1,3 +1,3 @@
-# A Web News Engine for Sentiment analysis and NLP
+# Flask App for Sentiment Analysis on News & Tweets
 
 https://webnewsengine.herokuapp.com/
