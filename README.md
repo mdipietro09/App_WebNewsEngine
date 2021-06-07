@@ -1,3 +1,3 @@
 # Flask App for Sentiment Analysis on News & Tweets
 
-https://webnewsengine.herokuapp.com/
+https://app-news-engine.herokuapp.com/
